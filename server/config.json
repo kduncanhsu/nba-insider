@@ -1,0 +1,9 @@
+{
+  "rds_host": "final-project.comhtxdqq8y0.us-east-1.rds.amazonaws.com",
+  "rds_port": "3306",
+  "rds_user": "admin",
+  "rds_password" : "adminadmin",
+  "rds_db": "NBA",
+  "server_host": "localhost",
+  "server_port":"8080"
+}

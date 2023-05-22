@@ -1,0 +1,112 @@
+create table if not exists NBA.Players
+(
+    player_name varchar(255) null,
+    player_id   varchar(12)  not null
+        primary key
+);
+
+create fulltext index player_name_fulltext
+    on NBA.Players (player_name);
+
+create table if not exists NBA.Teams
+(
+    team_name varchar(255) null,
+    team_id   varchar(12)  null,
+    city      varchar(255) null,
+    nickname  varchar(12)  null,
+    arena     varchar(255) null
+);
+
+create table if not exists NBA.Games
+(
+    game_date_est   date          null,
+    game_id         varchar(12)   not null
+        primary key,
+    home_team_id    varchar(12)   null,
+    visitor_team_id varchar(12)   null,
+    season          int           null,
+    pts_home        int           null,
+    fg_pct_home     decimal(5, 3) null,
+    ft_pct_home     decimal(5, 3) null,
+    fg3_pct_home    decimal(5, 3) null,
+    ast_home        int           null,
+    reb_home        int           null,
+    pts_away        int           null,
+    fg_pct_away     decimal(5, 3) null,
+    ft_pct_away     decimal(5, 3) null,
+    fg3_pct_away    decimal(5, 3) null,
+    ast_away        int           null,
+    reb_away        int           null,
+    constraint Games_ibfk_1
+        foreign key (home_team_id) references NBA.Teams (team_id),
+    constraint Games_ibfk_2
+        foreign key (visitor_team_id) references NBA.Teams (team_id)
+);
+
+create table if not exists NBA.Game_Details
+(
+    game_id     varchar(12)   not null,
+    team_id     varchar(12)   null,
+    player_id   varchar(12)   not null,
+    player_name varchar(255)  null,
+    min         varchar(10)   null,
+    fgm         int           null,
+    fga         int           null,
+    fg_pct      decimal(5, 3) null,
+    fg3m        int           null,
+    fg3a        int           null,
+    fg3_pct     decimal(5, 3) null,
+    ftm         int           null,
+    fta         int           null,
+    ft_pct      decimal(5, 3) null,
+    oreb        int           null,
+    dreb        int           null,
+    reb         int           null,
+    ast         int           null,
+    stl         int           null,
+    blk         int           null,
+    to_         int           null,
+    pf          int           null,
+    pts         int           null,
+    primary key (game_id, player_id),
+    constraint Game_Details_ibfk_1
+        foreign key (game_id) references NBA.Games (game_id),
+    constraint Game_Details_ibfk_2
+        foreign key (player_id) references NBA.Players (player_id),
+    constraint Game_Details_ibfk_3
+        foreign key (team_id) references NBA.Teams (team_id)
+);
+
+create index player_id
+    on NBA.Game_Details (player_id);
+
+create index team_id
+    on NBA.Game_Details (team_id);
+
+create index home_team_id
+    on NBA.Games (home_team_id);
+
+create index visitor_team_id
+    on NBA.Games (visitor_team_id);
+
+create table if not exists NBA.Player_Season
+(
+    player_name varchar(255) null,
+    player_id   varchar(12)  null,
+    team_id     varchar(12)  null,
+    season      int          null,
+    salary      int          null,
+    constraint Player_Season_ibfk_1
+        foreign key (team_id) references NBA.Teams (team_id),
+    constraint Player_Season_ibfk_2
+        foreign key (player_id) references NBA.Players (player_id)
+);
+
+create index player_id
+    on NBA.Player_Season (player_id);
+
+create index team_id
+    on NBA.Player_Season (team_id);
+
+create index idx_teams_team_id
+    on NBA.Teams (team_id);

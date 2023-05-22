@@ -14,6 +14,6 @@ The NBA Insider web application was developed with the primary goal of providing
 * react@17.0.2
 
 ## Project Contributors
+* [Kendrick Duncan Hsu](https://github.com/kduncanhsu).
 * [Charles Cheng](https://github.com/chacheng21).
-* [Kendrick Hsu](https://github.com/kduncanhsu).
 * [Naveen Mirapuri](https://github.com/NaveenM12).
